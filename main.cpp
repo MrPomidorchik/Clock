@@ -1,8 +1,8 @@
 #include <raylib.h>
-#include <math.h>
-#include <time.h>
+#include <cmath>
 #include <sys/time.h>
-#include <stdio.h>
+
+using namespace std;
 
 #define SCREEN_WIDTH (1920)
 #define SCREEN_HEIGHT (1080)
@@ -23,8 +23,8 @@ int main()
     while (!WindowShouldClose())
     {
         //время
-        struct  timeval tp;
-        gettimeofday(&tp,0);
+        struct  timeval tp{};
+        gettimeofday(&tp,nullptr);
         time_t t = tp.tv_sec;
         struct tm tm = *localtime(&t);
 
