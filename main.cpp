@@ -4,25 +4,20 @@
 
 using namespace std;
 
-#define SCREEN_WIDTH (1920)
-#define SCREEN_HEIGHT (1080)
-#define MARGIN (.05)
-#define WINDOW_TITLE "Clock"
-
 int main()
 {
+    float CLOCK_RADIUS = 200.0;
     float CLOCK_WIDTH = 200.0;
     float CLOCK_HEIGHT = 200.0;
-    float CLOCK_RADIUS = 200.0;
-    float SIZE = 20.0;
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    float SIZE = CLOCK_RADIUS / 10.0;
+    InitWindow(1920, 1080, "Clock");
     HideCursor();
     SetTargetFPS(60);
     ToggleFullscreen();
 
     while (!WindowShouldClose())
     {
-        //время
+        //ОБНОВЛЕНИЕ
         struct  timeval tp{};
         gettimeofday(&tp,nullptr);
         time_t t = tp.tv_sec;
@@ -53,11 +48,14 @@ int main()
         float hourHandEndX = hourXDir * (CLOCK_RADIUS * .5) + CLOCK_WIDTH;
         float hourHandEndY = hourYDir * (CLOCK_RADIUS * .5) + CLOCK_HEIGHT;
 
-        //циферблат
+        //ЦИФЕРБЛАТ
         BeginDrawing();
         ClearBackground(DARKGRAY);
-        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - MARGIN) + 20, BLACK);
-        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - MARGIN), RAYWHITE);
+        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - .05) + 20, BLACK);
+        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - .05), RAYWHITE);
+        DrawText(TextFormat("%i", tm.tm_sec), CLOCK_WIDTH + 15, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
+        DrawText(TextFormat("%i", tm.tm_min), CLOCK_WIDTH - 10, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
+        DrawText(TextFormat("%i", tm.tm_hour), CLOCK_WIDTH - 30, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
 
 
         //отображение цифр
@@ -76,23 +74,26 @@ int main()
         //отображение делений
         for (int l = 0; l < 60; l++) {
             float angleL = (l - 2) / 60.0 * 2.0 * PI;
-            float angleD = (l - 2) / 12.0 * 2.0 * PI;
+            float angleB = (l - 2) / 12.0 * 2.0 * PI;
             float xDirL = cos(angleL);
             float yDirL = sin(angleL);
-            float xDirD = cos(angleD);
-            float yDirD = sin(angleD);
+            float xDirB = cos(angleB);
+            float yDirB = sin(angleB);
             float dist = .93;
             DrawLineEx((Vector2){CLOCK_WIDTH + xDirL * CLOCK_RADIUS * dist, CLOCK_HEIGHT + yDirL * CLOCK_RADIUS * dist},(Vector2){CLOCK_WIDTH + xDirL * (CLOCK_RADIUS - 10) * dist, CLOCK_HEIGHT + yDirL * (CLOCK_RADIUS - 10) * dist}, CLOCK_RADIUS / 100.0, BLACK);
-            DrawLineEx((Vector2){CLOCK_WIDTH + xDirD * CLOCK_RADIUS * dist, CLOCK_HEIGHT + yDirD * CLOCK_RADIUS * dist},(Vector2){CLOCK_WIDTH + xDirD * (CLOCK_RADIUS - 15) * dist, CLOCK_HEIGHT + yDirD * (CLOCK_RADIUS - 15) * dist}, CLOCK_RADIUS / 50.0, BLACK);
+            DrawLineEx((Vector2){CLOCK_WIDTH + xDirB * CLOCK_RADIUS * dist, CLOCK_HEIGHT + yDirB * CLOCK_RADIUS * dist},(Vector2){CLOCK_WIDTH + xDirB * (CLOCK_RADIUS - 15) * dist, CLOCK_HEIGHT + yDirB * (CLOCK_RADIUS - 15) * dist}, CLOCK_RADIUS / 50.0, BLACK);
         }
         // отображение часовой стрелки
         DrawLineEx((Vector2){CLOCK_WIDTH, CLOCK_HEIGHT}, (Vector2){hourHandEndX, hourHandEndY}, CLOCK_RADIUS / 50.0, BLACK);
+
         //отображение минутной стрелки
         DrawLineEx((Vector2){CLOCK_WIDTH, CLOCK_HEIGHT}, (Vector2){minHandEndX, minHandEndY}, CLOCK_RADIUS / 50.0, BLACK);
+
         //отображение секундной стрелки
         DrawLineEx((Vector2){CLOCK_WIDTH, CLOCK_HEIGHT}, (Vector2){secHandEndX, secHandEndY}, CLOCK_RADIUS / 100.0, RED);
 
-        //управление
+        //УПРАВЛЕНИЕ
+
         //увеличение
         if((IsKeyPressed(KEY_EQUAL) && CLOCK_RADIUS != 560.0) || (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_EQUAL) && CLOCK_RADIUS != 560.0)){
             CLOCK_RADIUS = CLOCK_RADIUS + 20.0;
