@@ -31,28 +31,28 @@ int main()
         seconds -= 15.0;
         double secXDir = cos((float)seconds / 60.0 * 2.0 * PI);
         double secYDir = sin((float)seconds / 60.0 * 2.0 * PI);
-        float secHandEndX = secXDir * (CLOCK_RADIUS * .9) + CLOCK_WIDTH;
-        float secHandEndY = secYDir * (CLOCK_RADIUS * .9) + CLOCK_HEIGHT;
+        float secHandEndX = secXDir * (CLOCK_RADIUS * 0.9) + CLOCK_WIDTH;
+        float secHandEndY = secYDir * (CLOCK_RADIUS * 0.9) + CLOCK_HEIGHT;
 
         //минутная стрелка
         minutes -= 15.0;
         double minXDir = cos((float)minutes / 60.0 * 2.0 * PI);
         double minYDir = sin((float)minutes / 60.0 * 2.0 * PI);
-        float minHandEndX = minXDir * (CLOCK_RADIUS * .9) + CLOCK_WIDTH;
-        float minHandEndY = minYDir * (CLOCK_RADIUS * .9) + CLOCK_HEIGHT;
+        float minHandEndX = minXDir * (CLOCK_RADIUS * 0.9) + CLOCK_WIDTH;
+        float minHandEndY = minYDir * (CLOCK_RADIUS * 0.9) + CLOCK_HEIGHT;
 
         //часовая стрелка
         hours -= 3.0;
         double hourXDir = cos((float)hours / 12.0 * 2.0 * PI);
         double hourYDir = sin((float)hours / 12.0 * 2.0 * PI);
-        float hourHandEndX = hourXDir * (CLOCK_RADIUS * .5) + CLOCK_WIDTH;
-        float hourHandEndY = hourYDir * (CLOCK_RADIUS * .5) + CLOCK_HEIGHT;
+        float hourHandEndX = hourXDir * (CLOCK_RADIUS * 0.7) + CLOCK_WIDTH;
+        float hourHandEndY = hourYDir * (CLOCK_RADIUS * 0.7) + CLOCK_HEIGHT;
 
         //ЦИФЕРБЛАТ
         BeginDrawing();
         ClearBackground(DARKGRAY);
-        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - .05) + 20, BLACK);
-        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - .05), RAYWHITE);
+        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - 0.05) + 20, BLACK);
+        DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - 0.05), RAYWHITE);
         DrawText(TextFormat("%i", tm.tm_sec), CLOCK_WIDTH + 15, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
         DrawText(TextFormat("%i", tm.tm_min), CLOCK_WIDTH - 10, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
         DrawText(TextFormat("%i", tm.tm_hour), CLOCK_WIDTH - 35, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
@@ -67,7 +67,7 @@ int main()
             double angle = (float)(i - 2) / 12.0 * 2.0 * PI;
             double xDir = cos(angle);
             double yDir = sin(angle);
-            double fontDist = .8;
+            double fontDist = 0.8;
             DrawText(hourString, CLOCK_WIDTH + xDir * CLOCK_RADIUS * fontDist - stringCenter.x, CLOCK_HEIGHT + yDir * CLOCK_RADIUS * fontDist - stringCenter.y, SIZE, BLACK);
         }
 
@@ -79,7 +79,7 @@ int main()
             float yDirL = sin(angleL);
             float xDirB = cos(angleB);
             float yDirB = sin(angleB);
-            float dist = .93;
+            float dist = 0.93;
             DrawLineEx((Vector2){CLOCK_WIDTH + xDirL * CLOCK_RADIUS * dist, CLOCK_HEIGHT + yDirL * CLOCK_RADIUS * dist},(Vector2){CLOCK_WIDTH + xDirL * (CLOCK_RADIUS - 10) * dist, CLOCK_HEIGHT + yDirL * (CLOCK_RADIUS - 10) * dist}, CLOCK_RADIUS / 100.0, BLACK);
             DrawLineEx((Vector2){CLOCK_WIDTH + xDirB * CLOCK_RADIUS * dist, CLOCK_HEIGHT + yDirB * CLOCK_RADIUS * dist},(Vector2){CLOCK_WIDTH + xDirB * (CLOCK_RADIUS - 15) * dist, CLOCK_HEIGHT + yDirB * (CLOCK_RADIUS - 15) * dist}, CLOCK_RADIUS / 50.0, BLACK);
         }
