@@ -23,7 +23,7 @@ int main()
         time_t t = tp.tv_sec;
         struct tm tm = *localtime(&t);
 
-        double seconds = tm.tm_sec + ((float )tp.tv_usec * .000001);
+        double seconds = tm.tm_sec + ((float )tp.tv_usec * 0.000001);
         double minutes = tm.tm_min + (seconds / 60.0);
         double hours = tm.tm_hour + (minutes / 60.0);
 
