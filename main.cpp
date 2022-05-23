@@ -55,7 +55,7 @@ int main()
         DrawCircle(CLOCK_WIDTH, CLOCK_HEIGHT, CLOCK_RADIUS * (1.0 - .05), RAYWHITE);
         DrawText(TextFormat("%i", tm.tm_sec), CLOCK_WIDTH + 15, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
         DrawText(TextFormat("%i", tm.tm_min), CLOCK_WIDTH - 10, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
-        DrawText(TextFormat("%i", tm.tm_hour), CLOCK_WIDTH - 30, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
+        DrawText(TextFormat("%i", tm.tm_hour), CLOCK_WIDTH - 35, CLOCK_HEIGHT + (CLOCK_RADIUS / 2), 20, GREEN);
 
 
         //отображение цифр
